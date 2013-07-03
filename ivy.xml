@@ -21,6 +21,9 @@
 		<dependency org="info.cukes" name="cucumber-junit" rev="1.1.3"/>
 		<dependency org="info.cukes" name="cucumber-core" rev="1.1.3"/>
 		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.33.0"/>
+		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.33.0"/>
+		<dependency org="org.eclipse.jetty" name="jetty-server" rev="9.0.4.v20130625"/>
+		
 		<dependency org="junit" name="junit" rev="4.11"/>
 		
 			

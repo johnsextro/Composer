@@ -6,3 +6,4 @@ So that I can see the notifications before they are sent.
 Scenario: Test
 When the application starts
 Then I will see the Click Me button
+And Fuck

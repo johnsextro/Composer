@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.*;
@@ -33,8 +34,20 @@ public class ComposerUIStepDefs {
 
 	@Then("^I will see Thank you for clicking$")
 	public void I_will_see_Thank_you_for_clicking() throws Throwable {
-		waiter.waitForText("Thank you for clicking", 10, MyWaiter.HALF_SECOND);
+		waiter.waitForText("Thank you for clicking", 10, MyWaiter.ONE_TENTH_SECOND);
 		assertTrue(seleniumClient.isTextPresent("Thank you for clicking"));
+	}
+	
+	@Then("^I see a tree view$")
+	public void I_see_a_tree_view() throws Throwable {
+		waiter.waitForElement("//div[contains(@class, 'v-tree')]", 10, MyWaiter.HALF_SECOND);
+		assertTrue(seleniumClient.isElementPresent("//div[contains(@class, 'v-tree')]"));
+	}
+
+	@Then("^I see \"([^\"]*)\"$")
+	public void I_see(String expectedText) throws Throwable {
+		waiter.waitForText(expectedText, 10, MyWaiter.ONE_TENTH_SECOND);
+		assertTrue(seleniumClient.isTextPresent(expectedText));
 	}
 	
 	@After

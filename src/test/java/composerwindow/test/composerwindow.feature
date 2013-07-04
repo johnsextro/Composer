@@ -1,14 +1,10 @@
 Feature: User Interface for Sending Notifications
 	As a help desk analyst, 
-	I want a user interface I can use to create and send notifications,
-	So that I can see the notifications before they are sent.
+	I want to be able to select from a list of templates 
+	So that I can choose a pre-formatted template to use to create a notification.
 
-Scenario: Test
+Scenario: Tree view as a menu of templates
 	When the application starts
-	Then I see the Click Me button
+	Then I see a tree view
+	And I see "Email Templates"
 	
-Scenario: Test 2
-	When the application starts
-	And I see the Click Me button
-	And I click the Click Me button
-	Then I will see Thank you for clicking

@@ -5,8 +5,10 @@ Feature: User Interface for Sending Notifications
 
 Scenario: Test
 	When the application starts
-	Then I will see the Click Me button
+	Then I see the Click Me button
 	
 Scenario: Test 2
 	When the application starts
-	Then I will see the Click Me button
+	And I see the Click Me button
+	And I click the Click Me button
+	Then I will see Thank you for clicking

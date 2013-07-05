@@ -8,3 +8,11 @@ Scenario: Tree view as a menu of templates
 	Then I see a tree view
 	And I see "Email Templates"
 	
+Scenario: Combobox for searching for a specific template
+	When the application starts
+	Then I should see a field to use for searching templates
+	
+Scenario: Button to apply template
+	When the application starts
+	Then I should see a button labeled "Apply"
+	

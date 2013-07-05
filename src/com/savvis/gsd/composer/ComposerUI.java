@@ -6,6 +6,10 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -21,13 +25,24 @@ public class ComposerUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		final VerticalLayout layout = new VerticalLayout();
-		layout.setMargin(true);
-		setContent(layout);
-
+		final VerticalLayout leftColumn = new VerticalLayout();
+		final HorizontalLayout topLeft = new HorizontalLayout();
+		
+		leftColumn.setMargin(true);
+		setContent(leftColumn);
+		
+		Button applyTemplateButton = new Button("Apply");
+		ComboBox templateSearch = new ComboBox();
+		templateSearch.setId("templateSearch");
+		templateSearch.setInputPrompt("Search Templates");
 		Tree tree = new Tree("Email Templates");
 		loadTemplates(tree);
-		layout.addComponent(tree);
+		topLeft.addComponent(templateSearch);
+		topLeft.addComponent(applyTemplateButton);
+		
+		topLeft.addComponent(applyTemplateButton);
+		leftColumn.addComponent(topLeft);
+		leftColumn.addComponent(tree);
 	}
 	
 	private void loadTemplates(Tree tree) {

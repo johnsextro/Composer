@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.en.*;
 
@@ -17,17 +18,6 @@ public class ComposerUIStepDefs {
 	public void the_application_starts() throws Throwable {
 		seleniumClient.start();
 		seleniumClient.open("http://localhost:8080/Composer/");		
-	}
-
-	@Then("^I see the Click Me button$")
-	public void checkClickMe() throws Throwable {
-		waiter.waitForElement("//span[contains(@class, 'v-button-wrap')]", 10, MyWaiter.HALF_SECOND);
-		assertTrue(seleniumClient.isElementPresent("//span[contains(@class, 'v-button-wrap')]"));
-	}
-
-	@When("^I click the Click Me button$")
-	public void I_click_the_Click_Me_button() throws Throwable {
-		seleniumClient.click("//*[@id='Composer-534698688']/div/div[2]/div[1]/div");
 	}
 
 	@Then("^I will see Thank you for clicking$")
@@ -46,6 +36,18 @@ public class ComposerUIStepDefs {
 	public void I_see(String expectedText) throws Throwable {
 		waiter.waitForText(expectedText, 10, MyWaiter.ONE_TENTH_SECOND);
 		assertTrue(seleniumClient.isTextPresent(expectedText));
+	}
+	
+	@Then("^I should see a field to use for searching templates$")
+	public void I_should_see_a_field_to_use_for_searching_templates() throws Throwable {
+	    waiter.waitForElement("//input[@class='v-filterselect-input']", 10, MyWaiter.HALF_SECOND);
+	    assertTrue(seleniumClient.isElementPresent("//input[@class='v-filterselect-input']"));
+	}
+
+	@Then("^I should see a button labeled \"([^\"]*)\"$")
+	public void I_should_see_a_button_labeled(String buttonLabel) throws Throwable {
+		waiter.waitForElement("//span[contains(@class, 'v-button-wrap')]", 10, MyWaiter.HALF_SECOND);
+	    assertTrue(seleniumClient.isElementPresent("//span[contains(@class, 'v-button-caption') and text()='" + buttonLabel + "']"));
 	}
 	
 	@After

@@ -12,11 +12,29 @@
 	{
 		border: 2px solid;
 		border-radius: 10px;
+		width: 250px;
 	}
 	
 	#templateSearch
 	{
 		margin-right: 25px;
 		margin-bottom: 15px;
+	}
+	
+	#templateTree
+	{
+		margin-right: 50px;
+	}
+	
+	#emailHeader
+	{
+		width: 500px;
+		height: 100px;
+	}
+	
+	#emailBody
+	{
+		width: 500px;
+		height: 500px;
 	}
 }

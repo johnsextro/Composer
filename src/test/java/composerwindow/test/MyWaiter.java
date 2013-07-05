@@ -15,6 +15,10 @@ public class MyWaiter {
 		this.seleniumClient = seleniumClient;
 	}
 	
+	public void waitForElement(String locator) throws InterruptedException {
+		waitForElement(locator, 10, ONE_TENTH_SECOND);
+	}
+	
 	public void waitForElement(String locator, int maxRetryAttempts, int millsToWaitBetweenAttempts) throws InterruptedException {
 		int attempt = 0;
 		while (!seleniumClient.isElementPresent(locator) && attempt < maxRetryAttempts){
@@ -23,6 +27,10 @@ public class MyWaiter {
 		}
 	}
 
+	public void waitForText(String textToWaitFor) throws InterruptedException {
+		waitForText(textToWaitFor, 10, ONE_TENTH_SECOND);
+	}
+	
 	public void waitForText(String textToWaitFor, int maxRetryAttempts, int millsToWaitBetweenAttempts) throws InterruptedException {
 		int attempt = 0;
 		while (!seleniumClient.isTextPresent(textToWaitFor) && attempt < maxRetryAttempts){

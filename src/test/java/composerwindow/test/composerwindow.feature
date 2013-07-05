@@ -16,3 +16,7 @@ Scenario: Button to apply template
 	When the application starts
 	Then I should see a button labeled "Apply"
 	
+Scenario: Header area
+	When the application starts
+	Then I should see the header area
+	

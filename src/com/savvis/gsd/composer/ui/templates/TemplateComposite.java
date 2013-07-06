@@ -1,12 +1,13 @@
 package com.savvis.gsd.composer.ui.templates;
 
+import com.savvis.gsd.composer.ui.templates.components.TemplateSearchBox;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class TemplateUIElements {
+public class TemplateComposite {
 	
 	public static VerticalLayout createTemplateUI() {
 		final VerticalLayout leftColumn = new VerticalLayout();
@@ -28,14 +29,10 @@ public class TemplateUIElements {
 	public static HorizontalLayout createTopLeftUIComponents() {
 		final HorizontalLayout topLeft = new HorizontalLayout();
 		Button applyTemplateButton = new Button("Apply");
-		ComboBox templateSearch = new ComboBox();
-		templateSearch.setId("templateSearch");
-		templateSearch.setInputPrompt("Search Templates");
 
-		topLeft.addComponent(templateSearch);
+		topLeft.addComponent(new TemplateSearchBox());
 		topLeft.addComponent(applyTemplateButton);
 		
-		topLeft.addComponent(applyTemplateButton);
 		return topLeft;
 	}
 	

@@ -3,7 +3,7 @@ package com.savvis.gsd.composer;
 import javax.servlet.annotation.WebServlet;
 
 import com.savvis.gsd.composer.ui.email.EmailUIElements;
-import com.savvis.gsd.composer.ui.templates.TemplateUIElements;
+import com.savvis.gsd.composer.ui.templates.TemplateComposite;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -27,7 +27,7 @@ public class ComposerUI extends UI {
 		contentBody.setMargin(true);
 		setContent(contentBody);
 
-		contentBody.addComponent(TemplateUIElements.createTemplateUI());
+		contentBody.addComponent(TemplateComposite.createTemplateUI());
 		contentBody.addComponent(EmailUIElements.createEmailUI());
 	}
 

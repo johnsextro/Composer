@@ -42,10 +42,14 @@
 		<!-- Compiler for custom widget sets. Should not be deployed -->
 		<dependency org="com.vaadin" name="vaadin-client-compiler"
 			rev="&vaadin.version;" conf="widgetset-compile->default" />
-			
+		
+		<!-- Required to run the Cukes using Selenium. Should not be deployed -->	
 		<dependency org="info.cukes" name="cucumber-java" rev="1.1.3" conf="nodeploy->default"/>
 		<dependency org="info.cukes" name="cucumber-junit" rev="1.1.3" conf="nodeploy->default"/>
 		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.33.0" conf="nodeploy->default"/>
+		
+		<!-- Used for unit tests and Cukes. Should not be deployed -->
 		<dependency org="junit" name="junit" rev="4.11" conf="nodeploy->default"/>
+		
 	</dependencies>
 </ivy-module>

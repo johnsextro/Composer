@@ -15,6 +15,17 @@
 		width: 250px;
 	}
 	
+	.gwt-RichTextArea
+	{
+		width: 600px;
+		height: 450px;	
+	}
+	
+	.gwt-RichTextToolbar
+	{
+		width: 600px;	
+	}
+	
 	#templateSearch
 	{
 		margin-right: 25px;
@@ -28,13 +39,24 @@
 	
 	#emailHeader
 	{
-		width: 500px;
+		padding: 10px 10px 10px 25px;
+		width: 600px;
 		height: 100px;
 	}
 	
 	#emailBody
 	{
-		width: 500px;
-		height: 500px;
+		width: 600px;
+	}
+	
+	#emailButtonsArea
+	{
+		padding-left: 75%;
+	}
+	
+	#previewEmailButton
+	{
+		margin-right: 15px;
+		margin-bottom: 15px;
 	}
 }

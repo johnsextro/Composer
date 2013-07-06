@@ -20,3 +20,12 @@ Scenario: Header area
 	When the application starts
 	Then I should see the header area
 	
+Scenario: Email Editor area
+	When the application starts
+	Then I should see the email editor
+	
+Scenario: Email Buttons
+	When the application starts
+	Then I should see a button labeled "Preview"
+	And I should see a button labeled "Send"
+	

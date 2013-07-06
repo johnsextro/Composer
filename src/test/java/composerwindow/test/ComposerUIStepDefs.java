@@ -44,6 +44,18 @@ public class ComposerUIStepDefs {
 	    assertTrue(seleniumClient.isElementPresent("//span[contains(@class, 'v-button-caption') and text()='" + buttonLabel + "']"));
 	}
 	
+	@Then("^I should see the header area$")
+	public void I_should_see_the_header_area() throws Throwable {
+		waiter.waitForElement("//textarea[@id='emailHeader']");
+	    assertTrue(seleniumClient.isElementPresent("//textarea[@id='emailHeader']"));
+	}
+	
+	@Then("^I should see the email editor$")
+	public void verifyEmailEditor() throws Throwable {
+		waiter.waitForElement("//div[@id='emailBody']");
+	    assertTrue(seleniumClient.isElementPresent("//div[@id='emailBody']"));
+	}
+	
 	@After
 	public void tearDown(){
 		seleniumClient.stop();

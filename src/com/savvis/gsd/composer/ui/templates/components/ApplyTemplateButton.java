@@ -1,8 +1,8 @@
 package com.savvis.gsd.composer.ui.templates.components;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Button;
 
 public class ApplyTemplateButton extends CustomComponent implements Button.ClickListener {
 	private Button applyTemplateButton;
@@ -10,6 +10,7 @@ public class ApplyTemplateButton extends CustomComponent implements Button.Click
 	public ApplyTemplateButton() {
 		applyTemplateButton = new Button("Apply");
 		applyTemplateButton.addClickListener(this);
+		applyTemplateButton.setImmediate(true);
 		
 		setCompositionRoot(applyTemplateButton);
 	}
@@ -19,5 +20,4 @@ public class ApplyTemplateButton extends CustomComponent implements Button.Click
 		System.out.println("Apply Button Click");
 		
 	}
-
 }

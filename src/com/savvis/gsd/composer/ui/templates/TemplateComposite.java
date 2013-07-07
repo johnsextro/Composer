@@ -1,40 +1,38 @@
 package com.savvis.gsd.composer.ui.templates;
 
-import com.savvis.gsd.composer.ui.templates.components.ApplyTemplateButton;
 import com.savvis.gsd.composer.ui.templates.components.TemplateSearchBox;
 import com.savvis.gsd.composer.ui.templates.components.TemplateTree;
-import com.vaadin.event.ItemClickEvent;
-import com.vaadin.event.ItemClickEvent.ItemClickListener;
-import com.vaadin.ui.Component;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class TemplateComposite extends CustomComponent {
 	
 	private TemplateSearchBox templateSearchBox = new TemplateSearchBox();
 	private TemplateTree templateTree = new TemplateTree();
 
+
 	public TemplateComposite() {
 		final VerticalLayout leftColumn = new VerticalLayout();
 		final HorizontalLayout topLeft = new HorizontalLayout();
-		ApplyTemplateButton applyTemplateButton = new ApplyTemplateButton();
-
-		topLeft.addComponent(templateSearchBox);
-		topLeft.addComponent(applyTemplateButton);
+		final Button applyTemplateButton = new Button("Apply");
 		
-		templateTree.addItemClickListener(new ItemClickListener(){
+		templateTree.setImmediate(true);
+		templateTree.addValueChangeListener(new ValueChangeListener() {
 
 			@Override
-			public void itemClick(ItemClickEvent event) {
-				Tree clickedTree = (Tree) event.getComponent();
-				
-				System.out.println(clickedTree.getValue());
-				
+			public void valueChange(ValueChangeEvent event) {
+				System.out.println(templateTree.getValue());
 			}
 			
 		});
+		
+		topLeft.addComponent(templateSearchBox);
+		topLeft.addComponent(applyTemplateButton);
 		
 		leftColumn.addComponent(topLeft);
 		leftColumn.addComponent(templateTree);

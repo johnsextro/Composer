@@ -1,7 +1,7 @@
 package com.savvis.gsd.composer.ui.templates;
 
+import com.savvis.gsd.composer.ui.templates.components.ApplyTemplateButton;
 import com.savvis.gsd.composer.ui.templates.components.TemplateSearchBox;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
@@ -27,10 +27,8 @@ public class TemplateComposite {
 
 	public static HorizontalLayout createTopLeftUIComponents() {
 		final HorizontalLayout topLeft = new HorizontalLayout();
-		Button applyTemplateButton = new Button("Apply");
-
 		topLeft.addComponent(new TemplateSearchBox());
-		topLeft.addComponent(applyTemplateButton);
+		topLeft.addComponent(new ApplyTemplateButton());
 		
 		return topLeft;
 	}

@@ -2,20 +2,21 @@ package com.savvis.gsd.composer.ui.templates;
 
 import com.savvis.gsd.composer.ui.templates.components.ApplyTemplateButton;
 import com.savvis.gsd.composer.ui.templates.components.TemplateSearchBox;
+import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class TemplateComposite {
+public class TemplateComposite extends CustomComponent {
 	
-	public static VerticalLayout createTemplateUI() {
+	public TemplateComposite() {
 		final VerticalLayout leftColumn = new VerticalLayout();
 		final HorizontalLayout topLeft = createTopLeftUIComponents();
 		
 		Tree tree = createTemplateTreeUIComponent();
 		leftColumn.addComponent(topLeft);
 		leftColumn.addComponent(tree);
-		return leftColumn;
+		setCompositionRoot(leftColumn);
 	}
 
 	public static Tree createTemplateTreeUIComponent() {
@@ -25,7 +26,7 @@ public class TemplateComposite {
 		return tree;
 	}
 
-	public static HorizontalLayout createTopLeftUIComponents() {
+	protected static HorizontalLayout createTopLeftUIComponents() {
 		final HorizontalLayout topLeft = new HorizontalLayout();
 		topLeft.addComponent(new TemplateSearchBox());
 		topLeft.addComponent(new ApplyTemplateButton());

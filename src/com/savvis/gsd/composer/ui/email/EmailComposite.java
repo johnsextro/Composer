@@ -2,20 +2,22 @@ package com.savvis.gsd.composer.ui.email;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-public class EmailUIElements {
+public class EmailComposite extends CustomComponent{
 	
 
-	public static Component createEmailUI() {
+	public EmailComposite() {
 		final VerticalLayout centerColumn = new VerticalLayout();
 		centerColumn.addComponent(createEmailButtons());
 		centerColumn.addComponent(createEmailHeaderComponent());
 		centerColumn.addComponent(createEmailEditor());
-		return centerColumn;
+		
+		setCompositionRoot(centerColumn);
 	}
 
 	public static RichTextArea createEmailEditor() {

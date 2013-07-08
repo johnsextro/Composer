@@ -2,20 +2,34 @@ package com.savvis.gsd.composer;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.savvis.gsd.composer.ui.email.EmailComposite;
-import com.savvis.gsd.composer.ui.templates.TemplateComposite;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.RichTextArea;
+import com.vaadin.ui.TextArea;
+import com.vaadin.ui.Tree;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
 
 @SuppressWarnings("serial")
 @Theme("composer")
 public class ComposerUI extends UI {
 
-	private TemplateComposite templateComposite = new TemplateComposite();
+	private final ComboBox templateSearchBox = ComposerComponentFactory.createTemplateSearchBox();
+	private final Tree templateTree = ComposerComponentFactory.createTemplateTree();
+	private final Button applyTemplateButton = new Button("Apply");
+	private final Button previewButton = ComposerComponentFactory.createPreviewButton();
+	private final Button sendButton = ComposerComponentFactory.createSendButton();
+	private final TextArea emailHeader = ComposerComponentFactory.createEmailHeaderComponent();
+	private final RichTextArea emailEditor = ComposerComponentFactory.createEmailEditor();
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = ComposerUI.class)
@@ -25,15 +39,55 @@ public class ComposerUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		final HorizontalLayout contentBody = new HorizontalLayout();
+		final VerticalLayout leftColumnContent = createLeftColumnLayout();
+		final VerticalLayout centerColumnContent = createCenterColumnLayout();
 		
 		contentBody.setMargin(true);
 		setContent(contentBody);
-
-
-		contentBody.addComponent(templateComposite);
-		contentBody.addComponent(new EmailComposite());
 		
+		contentBody.addComponent(leftColumnContent);
+		contentBody.addComponent(centerColumnContent);
+		
+		registerEvents();
 		loadTemplates();
+	}
+
+	private void registerEvents() {
+		applyTemplateButton.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				String selectedTemplate = (String) templateTree.getValue();
+				if (selectedTemplate != null && selectedTemplate != "") {
+					emailEditor.setValue(selectedTemplate);
+				}
+			}
+		});
+		
+	}
+
+	private VerticalLayout createLeftColumnLayout() {
+		final VerticalLayout leftColumn = new VerticalLayout();
+		final HorizontalLayout topLeft = new HorizontalLayout();
+		topLeft.addComponent(templateSearchBox);
+		topLeft.addComponent(applyTemplateButton);
+		leftColumn.addComponent(topLeft);
+		leftColumn.addComponent(templateTree);
+		
+		return leftColumn;
+	}
+	
+	private VerticalLayout createCenterColumnLayout() {
+		final VerticalLayout centerColumn = new VerticalLayout();
+		final HorizontalLayout emailButtons = new HorizontalLayout();
+		emailButtons.setId("emailButtonsArea");
+		emailButtons.addComponent(previewButton);
+		emailButtons.addComponent(sendButton);
+		
+		centerColumn.addComponent(emailButtons);
+		centerColumn.addComponent(emailHeader);
+		centerColumn.addComponent(emailEditor);
+		return centerColumn;
 	}
 
 	private void loadTemplates() {
@@ -50,7 +104,36 @@ public class ComposerUI extends UI {
 		                                "Titania", "Oberon"},
 		        new Object[]{"Neptune", "Triton", "Proteus", "Nereid",
 		                                "Larissa"}};
-		templateComposite.loadTemplates(templates);
+		loadTree(templates);
+	}
+	
+	private void loadTree(Object[][] templates) {
+		for (int i=0; i<templates.length; i++) {
+		    String planet = (String) (templates[i][0]);
+		    templateTree.addItem(planet);
+		    
+		    if (templates[i].length == 1) {
+		        // The planet has no moons so make it a leaf.
+		        templateTree.setChildrenAllowed(planet, false);
+		    } else {
+		        // Add children (moons) under the planets.
+		        for (int j=1; j<templates[i].length; j++) {
+		            String moon = (String) templates[i][j];
+		            
+		            // Add the item as a regular item.
+		            templateTree.addItem(moon);
+		            
+		            // Set it to be a child.
+		            templateTree.setParent(moon, planet);
+		            
+		            // Make the moons look like leaves.
+		            templateTree.setChildrenAllowed(moon, false);
+		        }
+
+		        // Expand the subtree.
+		        templateTree.expandItemsRecursively(planet);
+		    }
+		}
 	}
 
 

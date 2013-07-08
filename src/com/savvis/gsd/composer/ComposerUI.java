@@ -23,9 +23,9 @@ public class ComposerUI extends UI {
 
 	private final ComboBox templateSearchBox = ComposerComponentFactory.createTemplateSearchBox();
 	private final Tree templateTree = ComposerComponentFactory.createTemplateTree();
-	private final Button applyTemplateButton = new Button("Apply");
-	private final Button previewButton = ComposerComponentFactory.createPreviewButton();
-	private final Button sendButton = ComposerComponentFactory.createSendButton();
+	private final Button applyTemplateButton = ComposerComponentFactory.createButton("Apply", "applyTemplateButton");
+	private final Button previewButton = ComposerComponentFactory.createButton("Preview", "previewEmailButton");
+	private final Button sendButton = ComposerComponentFactory.createButton("Send", "sendEmailButton");
 	private final TextArea emailHeader = ComposerComponentFactory.createEmailHeaderComponent();
 	private final RichTextArea emailEditor = ComposerComponentFactory.createEmailEditor();
 	

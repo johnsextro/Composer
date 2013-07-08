@@ -33,23 +33,16 @@ public class ComposerComponentFactory {
 		return emailBody;
 	}
 
-	public static Button createPreviewButton() {
-		Button previewEmail = new Button("Preview");
-		previewEmail.setId("previewEmailButton");
-		return previewEmail;
-	}
-	
-	public static Button createSendButton() {
-		Button sendEmail = new Button("Send");
-		sendEmail.setId("sendEmailButton");
-		return sendEmail;
-
-	}
-
 	public static TextArea createEmailHeaderComponent() {
 		TextArea headerArea = new TextArea();
 		headerArea.setId("emailHeader");
 		headerArea.setValue("From: \nReply To: \nSubject: \nTo: \nCC: \nBCC: ");
 		return headerArea;
+	}
+
+	public static Button createButton(String buttonText, String uniqueElementId) {
+		Button button = new Button(buttonText);
+		button.setId(uniqueElementId);
+		return button;
 	}
 }

@@ -68,6 +68,7 @@ public class ComposerUI extends UI {
 		final VerticalLayout leftColumn = new VerticalLayout();
 		final HorizontalLayout topLeft = new HorizontalLayout();
 		topLeft.addComponent(templateSearchBox);
+		applyTemplateButton.setId("applyTemplateButton");
 		topLeft.addComponent(applyTemplateButton);
 		leftColumn.addComponent(topLeft);
 		leftColumn.addComponent(templateTree);

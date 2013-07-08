@@ -56,6 +56,18 @@ public class ComposerUIStepDefs {
 	    assertTrue(seleniumClient.isElementPresent("//div[@id='emailBody']"));
 	}
 	
+	@When("^I apply a template$")
+	public void I_apply_a_template() throws Throwable {
+	    seleniumClient.click("//div[contains(@id, 'gwt-uid')]/span[text()='Venus']");
+	    seleniumClient.click("//div[@id='applyTemplateButton']");
+	}
+
+	@Then("^the appropriate template is displayed in the Email Editor$")
+	public void the_appropriate_template_is_displayed_in_the_Email_Editor() throws Throwable {
+	    seleniumClient.selectFrame("//iframe[@class='gwt-RichTextArea']");
+		assertTrue(seleniumClient.getText("//html//body").equals("Venus"));
+	}
+	
 	@After
 	public void tearDown(){
 		seleniumClient.stop();

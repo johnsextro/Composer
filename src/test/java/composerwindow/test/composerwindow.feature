@@ -3,29 +3,21 @@ Feature: User Interface for Sending Notifications
 	I want to be able to select from a list of templates 
 	So that I can choose a pre-formatted template to use to create a notification.
 
-Scenario: Tree view as a menu of templates
+Scenario: Validate UI Elements Exist
 	When the application starts
 	Then I see a tree view
 	And I see "Email Templates"
-	
-Scenario: Combobox for searching for a specific template
-	When the application starts
-	Then I should see a field to use for searching templates
-	
-Scenario: Button to apply template
-	When the application starts
-	Then I should see a button labeled "Apply"
-	
-Scenario: Header area
-	When the application starts
-	Then I should see the header area
-	
-Scenario: Email Editor area
-	When the application starts
-	Then I should see the email editor
-	
-Scenario: Email Buttons
-	When the application starts
-	Then I should see a button labeled "Preview"
+	And I should see a field to use for searching templates
+	And I should see a button labeled "Apply"
+	And I should see the header area
+	And I should see the email editor
+	And I should see a button labeled "Preview"
 	And I should see a button labeled "Send"
+	
+Scenario: Apply Template
+	Given the application starts
+	And I see a tree view
+	When I apply a template
+	Then the appropriate template is displayed in the Email Editor
+	
 	

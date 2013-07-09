@@ -111,6 +111,48 @@ public class ComposerUI extends UI {
 			}
 		});
 		
+		subjectSection.addLayoutClickListener(new LayoutClickListener(){
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				enableEditing(subjectDisplay, subjectEditor);
+			}
+		});
+		
+		subjectEditor.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				disableEditing(subjectDisplay, subjectEditor);
+			}
+		});
+		
+		ccSection.addLayoutClickListener(new LayoutClickListener(){
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				enableEditing(ccDisplay, ccEditor);
+			}
+		});
+		
+		ccEditor.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				disableEditing(ccDisplay, ccEditor);
+			}
+		});
+		
+		bccSection.addLayoutClickListener(new LayoutClickListener(){
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				enableEditing(bccDisplay, bccEditor);
+			}
+		});
+		
+		bccEditor.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				disableEditing(bccDisplay, bccEditor);
+			}
+		});
+		
 	}
 
 	protected void disableEditing(Label label, TextField field) {
@@ -123,6 +165,7 @@ public class ComposerUI extends UI {
 		label.setVisible(false);
 		field.setVisible(true);
 		field.setValue(label.getValue());
+		field.setCursorPosition(field.getValue().length() + 1);
 	}
 
 	private VerticalLayout createLeftColumnLayout() {

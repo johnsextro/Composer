@@ -68,6 +68,12 @@ public class ComposerUIStepDefs {
 		assertTrue(seleniumClient.getText("//html//body").equals("Venus"));
 	}
 	
+	@Then("^I should see a \"([^\"]*)\" section$")
+	public void I_should_see_a_section(String arg1) throws Throwable {
+		waiter.waitForElement("//div[@id='fromSection']");
+		assertTrue(seleniumClient.isElementPresent("//div[@id='fromSection']"));
+	}
+	
 	@After
 	public void tearDown(){
 		seleniumClient.stop();

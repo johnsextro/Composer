@@ -9,10 +9,10 @@ Scenario: Validate UI Elements Exist
 	And I see "Email Templates"
 	And I should see a field to use for searching templates
 	And I should see a button labeled "Apply"
-	And I should see the header area
 	And I should see the email editor
 	And I should see a button labeled "Preview"
 	And I should see a button labeled "Send"
+	And I should see a "From" section
 	
 Scenario: Apply Template
 	Given the application starts

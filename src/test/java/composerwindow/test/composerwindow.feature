@@ -12,7 +12,7 @@ Scenario: Validate UI Elements Exist
 	And I should see the email editor
 	And I should see a button labeled "Preview"
 	And I should see a button labeled "Send"
-	And I should see a "From" section
+	And I should see the email header
 	
 Scenario: Apply Template
 	Given the application starts

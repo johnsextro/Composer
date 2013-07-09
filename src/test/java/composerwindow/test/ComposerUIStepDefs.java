@@ -1,12 +1,12 @@
 package test.java.composerwindow.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
-import cucumber.api.java.en.*;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 
 
 public class ComposerUIStepDefs {
@@ -72,6 +72,14 @@ public class ComposerUIStepDefs {
 	public void I_should_see_a_email_header() throws Throwable {
 		waiter.waitForElement("//div[@id='fromSection']");
 		assertTrue(seleniumClient.isElementPresent("//div[@id='fromSection']"));
+		waiter.waitForElement("//div[@id='replyToSection']");
+		assertTrue(seleniumClient.isElementPresent("//div[@id='replyToSection']"));
+		waiter.waitForElement("//div[@id='subjectSection']");
+		assertTrue(seleniumClient.isElementPresent("//div[@id='subjectSection']"));
+		waiter.waitForElement("//div[@id='ccSection']");
+		assertTrue(seleniumClient.isElementPresent("//div[@id='ccSection']"));
+		waiter.waitForElement("//div[@id='bccSection']");
+		assertTrue(seleniumClient.isElementPresent("//div[@id='bccSection']"));
 	}
 	
 	@After

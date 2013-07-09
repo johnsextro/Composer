@@ -15,7 +15,6 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.RichTextArea;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.UI;
@@ -33,6 +32,14 @@ public class ComposerUI extends UI {
 	private final RichTextArea emailEditor = ComposerComponentFactory.createEmailEditor();
 	private final Label fromDisplay = ComposerComponentFactory.createLabel("fromDiplay");
 	private final TextField fromEditor = ComposerComponentFactory.createTextField("fromEditor");
+	private final Label replyToDisplay = ComposerComponentFactory.createLabel("replyToDiplay");
+	private final TextField replyToEditor = ComposerComponentFactory.createTextField("replyToEditor");
+	private final Label subjectDisplay = ComposerComponentFactory.createLabel("subjectDiplay");
+	private final TextField subjectEditor = ComposerComponentFactory.createTextField("subjectEditor");
+	private final Label ccDisplay = ComposerComponentFactory.createLabel("ccDiplay");
+	private final TextField ccEditor = ComposerComponentFactory.createTextField("ccEditor");
+	private final Label bccDisplay = ComposerComponentFactory.createLabel("bccDiplay");
+	private final TextField bccEditor = ComposerComponentFactory.createTextField("ccEditor");
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = ComposerUI.class)
@@ -97,7 +104,10 @@ public class ComposerUI extends UI {
 	private Component createEmailHeader() {
 		VerticalLayout emailHeader = new VerticalLayout();
 		emailHeader.addComponent(createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor));
-		
+		emailHeader.addComponent(createHeaderSection("replyToSection", "Reply: ", replyToDisplay, replyToEditor));
+		emailHeader.addComponent(createHeaderSection("subjectSection", "Subject: ", subjectDisplay, subjectEditor));
+		emailHeader.addComponent(createHeaderSection("ccSection", "CC: ", ccDisplay, ccEditor));
+		emailHeader.addComponent(createHeaderSection("bccSection", "BCC: ", bccDisplay, bccEditor));
 		return emailHeader;
 	}
 

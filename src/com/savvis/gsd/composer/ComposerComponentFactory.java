@@ -49,7 +49,7 @@ public class ComposerComponentFactory {
 	}
 
 	public static Label createLabel(String uniqueElementId) {
-		Label label = new Label();
+		Label label = new Label(" ");
 		label.setId(uniqueElementId);
 		return label;
 	}
@@ -57,6 +57,7 @@ public class ComposerComponentFactory {
 	public static TextField createTextField(String uniqueElementId) {
 		TextField tf = new TextField();
 		tf.setId(uniqueElementId);
+		tf.setVisible(false);
 		return tf;
 	}
 }

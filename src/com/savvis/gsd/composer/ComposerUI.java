@@ -5,6 +5,10 @@ import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -30,16 +34,17 @@ public class ComposerUI extends UI {
 	private final Button previewButton = ComposerComponentFactory.createButton("Preview", "previewEmailButton");
 	private final Button sendButton = ComposerComponentFactory.createButton("Send", "sendEmailButton");
 	private final RichTextArea emailEditor = ComposerComponentFactory.createEmailEditor();
-	private final Label fromDisplay = ComposerComponentFactory.createLabel("fromDiplay");
+	private final Label fromDisplay = ComposerComponentFactory.createLabel("fromDisplay");
 	private final TextField fromEditor = ComposerComponentFactory.createTextField("fromEditor");
-	private final Label replyToDisplay = ComposerComponentFactory.createLabel("replyToDiplay");
+	private final Label replyToDisplay = ComposerComponentFactory.createLabel("replyToDisplay");
 	private final TextField replyToEditor = ComposerComponentFactory.createTextField("replyToEditor");
-	private final Label subjectDisplay = ComposerComponentFactory.createLabel("subjectDiplay");
+	private final Label subjectDisplay = ComposerComponentFactory.createLabel("subjectDisplay");
 	private final TextField subjectEditor = ComposerComponentFactory.createTextField("subjectEditor");
-	private final Label ccDisplay = ComposerComponentFactory.createLabel("ccDiplay");
+	private final Label ccDisplay = ComposerComponentFactory.createLabel("ccDisplay");
 	private final TextField ccEditor = ComposerComponentFactory.createTextField("ccEditor");
-	private final Label bccDisplay = ComposerComponentFactory.createLabel("bccDiplay");
+	private final Label bccDisplay = ComposerComponentFactory.createLabel("bccDisplay");
 	private final TextField bccEditor = ComposerComponentFactory.createTextField("ccEditor");
+	private HorizontalLayout fromSection;
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = ComposerUI.class)
@@ -74,6 +79,32 @@ public class ComposerUI extends UI {
 			}
 		});
 		
+		fromSection.addLayoutClickListener(new LayoutClickListener(){
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				enableEditing(fromDisplay, fromEditor);
+			}
+		});
+		
+		fromEditor.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				disableEditing(fromDisplay, fromEditor);
+			}
+		});
+		
+	}
+
+	protected void disableEditing(Label label, TextField field) {
+		label.setVisible(true);
+		label.setValue(field.getValue());
+		field.setVisible(false);
+	}
+
+	protected void enableEditing(Label label, TextField field) {
+		label.setVisible(false);
+		field.setVisible(true);
+		field.setValue(label.getValue());
 	}
 
 	private VerticalLayout createLeftColumnLayout() {
@@ -103,7 +134,9 @@ public class ComposerUI extends UI {
 
 	private Component createEmailHeader() {
 		VerticalLayout emailHeader = new VerticalLayout();
-		emailHeader.addComponent(createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor));
+		emailHeader.setId("emailHeader");
+		fromSection = createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor);
+		emailHeader.addComponent(fromSection);
 		emailHeader.addComponent(createHeaderSection("replyToSection", "Reply: ", replyToDisplay, replyToEditor));
 		emailHeader.addComponent(createHeaderSection("subjectSection", "Subject: ", subjectDisplay, subjectEditor));
 		emailHeader.addComponent(createHeaderSection("ccSection", "CC: ", ccDisplay, ccEditor));
@@ -111,7 +144,7 @@ public class ComposerUI extends UI {
 		return emailHeader;
 	}
 
-	public Component createHeaderSection(String uniqueIdentified, String sectionLabel, Component displayComponent, Component editorComponent) {
+	public HorizontalLayout createHeaderSection(String uniqueIdentified, String sectionLabel, Component displayComponent, Component editorComponent) {
 		final HorizontalLayout section = new HorizontalLayout();
 		section.setId(uniqueIdentified);
 		section.addComponent(new Label(sectionLabel));

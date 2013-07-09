@@ -27,6 +27,14 @@
 		width: 600px;	
 	}
 	
+	.v-textfield {
+		width: 500px;
+	}
+	
+	#fromDisplay, #replyToDisplay, #subjectDisplay, #ccDisplay, #bccDisplay {
+		width: 500px;
+	} 
+	
 	#templateSearch
 	{
 		margin-right: 25px;
@@ -42,7 +50,9 @@
 	{
 		padding: 10px 10px 10px 25px;
 		width: 600px;
-		height: 100px;
+		height: 125px;
+		border-width: 1px;
+		border-style: solid;
 	}
 	
 	#emailBody

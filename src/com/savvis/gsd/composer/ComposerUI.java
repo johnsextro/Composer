@@ -44,7 +44,11 @@ public class ComposerUI extends UI {
 	private final TextField ccEditor = ComposerComponentFactory.createTextField("ccEditor");
 	private final Label bccDisplay = ComposerComponentFactory.createLabel("bccDisplay");
 	private final TextField bccEditor = ComposerComponentFactory.createTextField("ccEditor");
-	private HorizontalLayout fromSection;
+	private final HorizontalLayout fromSection = ComposerComponentFactory.createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor);
+	private final HorizontalLayout replyToSection = ComposerComponentFactory.createHeaderSection("replyToSection", "Reply: ", replyToDisplay, replyToEditor);
+	private final HorizontalLayout subjectSection = ComposerComponentFactory.createHeaderSection("subjectSection", "Subject: ", subjectDisplay, subjectEditor); 
+	private final HorizontalLayout ccSection = ComposerComponentFactory.createHeaderSection("ccSection", "CC: ", ccDisplay, ccEditor);
+	private final HorizontalLayout bccSection = ComposerComponentFactory.createHeaderSection("bccSection", "BCC: ", bccDisplay, bccEditor);
 	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = ComposerUI.class)
@@ -93,6 +97,20 @@ public class ComposerUI extends UI {
 			}
 		});
 		
+		replyToSection.addLayoutClickListener(new LayoutClickListener(){
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				enableEditing(replyToDisplay, replyToEditor);
+			}
+		});
+		
+		replyToEditor.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				disableEditing(replyToDisplay, replyToEditor);
+			}
+		});
+		
 	}
 
 	protected void disableEditing(Label label, TextField field) {
@@ -135,23 +153,16 @@ public class ComposerUI extends UI {
 	private Component createEmailHeader() {
 		VerticalLayout emailHeader = new VerticalLayout();
 		emailHeader.setId("emailHeader");
-		fromSection = createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor);
+		
 		emailHeader.addComponent(fromSection);
-		emailHeader.addComponent(createHeaderSection("replyToSection", "Reply: ", replyToDisplay, replyToEditor));
-		emailHeader.addComponent(createHeaderSection("subjectSection", "Subject: ", subjectDisplay, subjectEditor));
-		emailHeader.addComponent(createHeaderSection("ccSection", "CC: ", ccDisplay, ccEditor));
-		emailHeader.addComponent(createHeaderSection("bccSection", "BCC: ", bccDisplay, bccEditor));
+		emailHeader.addComponent(replyToSection);
+		emailHeader.addComponent(subjectSection);
+		emailHeader.addComponent(ccSection);
+		emailHeader.addComponent(bccSection);
 		return emailHeader;
 	}
 
-	public HorizontalLayout createHeaderSection(String uniqueIdentified, String sectionLabel, Component displayComponent, Component editorComponent) {
-		final HorizontalLayout section = new HorizontalLayout();
-		section.setId(uniqueIdentified);
-		section.addComponent(new Label(sectionLabel));
-		section.addComponent(displayComponent);
-		section.addComponent(editorComponent);
-		return section;
-	}
+
 
 	private void loadTemplates() {
 		final Object[][] templates = new Object[][]{

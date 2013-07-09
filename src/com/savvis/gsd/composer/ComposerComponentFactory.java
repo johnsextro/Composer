@@ -2,6 +2,7 @@ package com.savvis.gsd.composer;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.RichTextArea;
@@ -59,5 +60,14 @@ public class ComposerComponentFactory {
 		tf.setId(uniqueElementId);
 		tf.setVisible(false);
 		return tf;
+	}
+	
+	public static HorizontalLayout createHeaderSection(String uniqueIdentified, String sectionLabel, Component displayComponent, Component editorComponent) {
+		final HorizontalLayout section = new HorizontalLayout();
+		section.setId(uniqueIdentified);
+		section.addComponent(new Label(sectionLabel));
+		section.addComponent(displayComponent);
+		section.addComponent(editorComponent);
+		return section;
 	}
 }

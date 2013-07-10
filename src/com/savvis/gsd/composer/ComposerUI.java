@@ -42,7 +42,7 @@ public class ComposerUI extends UI {
 	private final Label ccDisplay = ComposerComponentFactory.createLabel("ccDisplay");
 	private final TextField ccEditor = ComposerComponentFactory.createTextField("ccEditor");
 	private final Label bccDisplay = ComposerComponentFactory.createLabel("bccDisplay");
-	private final TextField bccEditor = ComposerComponentFactory.createTextField("ccEditor");
+	private final TextField bccEditor = ComposerComponentFactory.createTextField("bccEditor");
 	private final HorizontalLayout fromSection = ComposerComponentFactory.createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor);
 	private final HorizontalLayout replyToSection = ComposerComponentFactory.createHeaderSection("replyToSection", "Reply To: ", replyToDisplay, replyToEditor);
 	private final HorizontalLayout toSection = ComposerComponentFactory.createHeaderSection("toSection", "To: ", toDisplay, toEditor);

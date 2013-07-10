@@ -20,4 +20,9 @@ Scenario: Apply Template
 	When I apply a template
 	Then the appropriate template is displayed in the Email Editor
 	
+Scenario: Edit Email Header
+	Given the application starts
+	When I edit the email header
+	Then the email header displays my edit
+	
 	

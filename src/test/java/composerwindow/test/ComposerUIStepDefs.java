@@ -12,6 +12,12 @@ import cucumber.api.java.en.When;
 public class ComposerUIStepDefs {
 	protected DefaultSelenium seleniumClient = new DefaultSelenium("localhost", 4444, "*googlechrome", "http://localhost:8080");
 	private MyWaiter waiter = new MyWaiter(seleniumClient);
+	private String emailHeaderFromEntry = "a@b.c";
+	private String emailHeaderReplyToEntry = "B@b.c, a@b.c";
+	private String emailHeaderSubjectEntry = "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaan Email";
+	private String emailHeaderCCEntry = "theemailofthecustomer@customer.com";
+	private String emailHeaderBCCEntry = "ReallylongWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWemail@customer.com";
+	private String emailHeaderToEntry = "Plain old subject";
 
 	
 	@When("^the application starts$")
@@ -82,6 +88,51 @@ public class ComposerUIStepDefs {
 		assertTrue(seleniumClient.isElementPresent("//div[@id='bccSection']"));
 	}
 	
+	@When("^I edit the email header$")
+	public void I_edit_the_email_header() throws Throwable {
+		clickEmailHeaderSection("//div[@id='fromSection']");
+		typeTextInEditor("//input[@id='fromEditor']", this.emailHeaderFromEntry);
+		clickEmailHeaderSection("//div[@id='replyToSection']");
+		typeTextInEditor("//input[@id='replyToEditor']", this.emailHeaderReplyToEntry);
+		clickEmailHeaderSection("//div[@id='subjectSection']");
+		typeTextInEditor("//input[@id='subjectEditor']", this.emailHeaderSubjectEntry);
+		clickEmailHeaderSection("//div[@id='toSection']");
+		typeTextInEditor("//input[@id='toEditor']", this.emailHeaderToEntry);
+		clickEmailHeaderSection("//div[@id='ccSection']");
+		typeTextInEditor("//input[@id='ccEditor']", this.emailHeaderCCEntry);
+		clickEmailHeaderSection("//div[@id='bccSection']");
+		typeTextInEditor("//input[@id='bccEditor']", this.emailHeaderBCCEntry);
+	}
+
+	@Then("^the email header displays my edit$")
+	public void the_email_header_displays_my_edit() throws Throwable {
+		verifyEmailSectionLabelText("//div[@id='fromDisplay']", this.emailHeaderFromEntry);
+		verifyEmailSectionLabelText("//div[@id='replyToDisplay']", this.emailHeaderReplyToEntry);
+		verifyEmailSectionLabelText("//div[@id='subjectDisplay']", this.emailHeaderSubjectEntry);
+		verifyEmailSectionLabelText("//div[@id='toDisplay']", this.emailHeaderToEntry);
+		verifyEmailSectionLabelText("//div[@id='ccDisplay']", this.emailHeaderCCEntry);
+		verifyEmailSectionLabelText("//div[@id='bccDisplay']", this.emailHeaderBCCEntry);
+	}
+
+	private void typeTextInEditor(String editorLocator, String textToType) throws InterruptedException {
+		waiter.waitForElement(editorLocator);
+		seleniumClient.focus(editorLocator);
+		seleniumClient.type(editorLocator, textToType);
+		seleniumClient.fireEvent(editorLocator, "blur");
+	}
+
+	private void clickEmailHeaderSection(String locator) throws InterruptedException {
+		waiter.waitForElement(locator);
+		seleniumClient.mouseDown(locator);
+		seleniumClient.mouseUp(locator);
+	}
+
+	
+	private void verifyEmailSectionLabelText(String emailSectionLabelLocator, String textToVerify) throws InterruptedException {
+		waiter.waitForElement(emailSectionLabelLocator);
+	    assertTrue(seleniumClient.getText(emailSectionLabelLocator).equals(textToVerify));
+	}
+
 	@After
 	public void tearDown(){
 		seleniumClient.stop();

@@ -98,11 +98,8 @@ public class ComposerUI extends UI {
 	private VerticalLayout createLeftColumnLayout() {
 		final VerticalLayout leftColumn = new VerticalLayout();
 		final HorizontalLayout topLeft = new HorizontalLayout();
-		final Panel scrollableArea = new Panel();
-		scrollableArea.setId("treeScrollableArea");
+		final Panel scrollableArea = ComposerComponentFactory.createTreeScrollArea();
 		scrollableArea.setContent(templateTree);
-		scrollableArea.setWidth("250px");
-		scrollableArea.setHeight("570px");
 		
 		topLeft.addComponent(templateSearchBox);
 		applyTemplateButton.setId("applyTemplateButton");
@@ -112,7 +109,7 @@ public class ComposerUI extends UI {
 		
 		return leftColumn;
 	}
-	
+
 	private VerticalLayout createCenterColumnLayout() {
 		final VerticalLayout centerColumn = new VerticalLayout();
 		final HorizontalLayout emailButtons = new HorizontalLayout();

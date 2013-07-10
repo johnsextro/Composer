@@ -6,6 +6,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
@@ -19,6 +20,14 @@ public class ComposerComponentFactory {
 		tree.setSizeUndefined();
 		tree.setImmediate(true);
 		return tree;
+	}
+	
+	public static Panel createTreeScrollArea() {
+		final Panel scrollableArea = new Panel();
+		scrollableArea.setId("treeScrollableArea");
+		scrollableArea.setWidth("250px");
+		scrollableArea.setHeight("565px");
+		return scrollableArea;
 	}
 	
 	public static ComboBox createTemplateSearchBox() {

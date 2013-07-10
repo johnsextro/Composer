@@ -3,12 +3,11 @@ package com.savvis.gsd.composer;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.savvis.gsd.composer.event.EmailHeaderSectionClickListener;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.event.FieldEvents.BlurEvent;
 import com.vaadin.event.FieldEvents.BlurListener;
-import com.vaadin.event.LayoutEvents.LayoutClickEvent;
-import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -85,12 +84,7 @@ public class ComposerUI extends UI {
 			}
 		});
 		
-		fromSection.addLayoutClickListener(new LayoutClickListener(){
-			@Override
-			public void layoutClick(LayoutClickEvent event) {
-				enableEditing(fromDisplay, fromEditor);
-			}
-		});
+		fromSection.addLayoutClickListener(new EmailHeaderSectionClickListener(fromDisplay, fromEditor));
 		
 		fromEditor.addBlurListener(new BlurListener() {
 			@Override
@@ -99,12 +93,7 @@ public class ComposerUI extends UI {
 			}
 		});
 		
-		replyToSection.addLayoutClickListener(new LayoutClickListener(){
-			@Override
-			public void layoutClick(LayoutClickEvent event) {
-				enableEditing(replyToDisplay, replyToEditor);
-			}
-		});
+		replyToSection.addLayoutClickListener(new EmailHeaderSectionClickListener(replyToDisplay, replyToEditor));
 		
 		replyToEditor.addBlurListener(new BlurListener() {
 			@Override
@@ -113,12 +102,7 @@ public class ComposerUI extends UI {
 			}
 		});
 		
-		subjectSection.addLayoutClickListener(new LayoutClickListener(){
-			@Override
-			public void layoutClick(LayoutClickEvent event) {
-				enableEditing(subjectDisplay, subjectEditor);
-			}
-		});
+		subjectSection.addLayoutClickListener(new EmailHeaderSectionClickListener(subjectDisplay, subjectEditor));
 		
 		subjectEditor.addBlurListener(new BlurListener() {
 			@Override
@@ -127,12 +111,7 @@ public class ComposerUI extends UI {
 			}
 		});
 		
-		toSection.addLayoutClickListener(new LayoutClickListener(){
-			@Override
-			public void layoutClick(LayoutClickEvent event) {
-				enableEditing(toDisplay, toEditor);
-			}
-		});
+		toSection.addLayoutClickListener(new EmailHeaderSectionClickListener(toDisplay, toEditor));
 		
 		toEditor.addBlurListener(new BlurListener() {
 			@Override
@@ -141,12 +120,7 @@ public class ComposerUI extends UI {
 			}
 		});
 		
-		ccSection.addLayoutClickListener(new LayoutClickListener(){
-			@Override
-			public void layoutClick(LayoutClickEvent event) {
-				enableEditing(ccDisplay, ccEditor);
-			}
-		});
+		ccSection.addLayoutClickListener(new EmailHeaderSectionClickListener(ccDisplay, ccEditor));
 		
 		ccEditor.addBlurListener(new BlurListener() {
 			@Override
@@ -155,12 +129,7 @@ public class ComposerUI extends UI {
 			}
 		});
 		
-		bccSection.addLayoutClickListener(new LayoutClickListener(){
-			@Override
-			public void layoutClick(LayoutClickEvent event) {
-				enableEditing(bccDisplay, bccEditor);
-			}
-		});
+		bccSection.addLayoutClickListener(new EmailHeaderSectionClickListener(bccDisplay, bccEditor));
 		
 		bccEditor.addBlurListener(new BlurListener() {
 			@Override
@@ -175,13 +144,6 @@ public class ComposerUI extends UI {
 		label.setVisible(true);
 		label.setValue(field.getValue());
 		field.setVisible(false);
-	}
-
-	protected void enableEditing(Label label, TextField field) {
-		label.setVisible(false);
-		field.setVisible(true);
-		field.setValue(label.getValue());
-		field.setCursorPosition(field.getValue().length() + 1);
 	}
 
 	private VerticalLayout createLeftColumnLayout() {

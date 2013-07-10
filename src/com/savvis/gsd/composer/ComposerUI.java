@@ -4,10 +4,9 @@ package com.savvis.gsd.composer;
 import javax.servlet.annotation.WebServlet;
 
 import com.savvis.gsd.composer.event.EmailHeaderSectionClickListener;
+import com.savvis.gsd.composer.event.EmailSectionHeaderEditorBlurListener;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.event.FieldEvents.BlurEvent;
-import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -85,65 +84,23 @@ public class ComposerUI extends UI {
 		});
 		
 		fromSection.addLayoutClickListener(new EmailHeaderSectionClickListener(fromDisplay, fromEditor));
-		
-		fromEditor.addBlurListener(new BlurListener() {
-			@Override
-			public void blur(BlurEvent event) {
-				disableEditing(fromDisplay, fromEditor);
-			}
-		});
+		fromEditor.addBlurListener(new EmailSectionHeaderEditorBlurListener(fromDisplay, fromEditor));
 		
 		replyToSection.addLayoutClickListener(new EmailHeaderSectionClickListener(replyToDisplay, replyToEditor));
-		
-		replyToEditor.addBlurListener(new BlurListener() {
-			@Override
-			public void blur(BlurEvent event) {
-				disableEditing(replyToDisplay, replyToEditor);
-			}
-		});
+		replyToEditor.addBlurListener(new EmailSectionHeaderEditorBlurListener(replyToDisplay, replyToEditor));
 		
 		subjectSection.addLayoutClickListener(new EmailHeaderSectionClickListener(subjectDisplay, subjectEditor));
-		
-		subjectEditor.addBlurListener(new BlurListener() {
-			@Override
-			public void blur(BlurEvent event) {
-				disableEditing(subjectDisplay, subjectEditor);
-			}
-		});
+		subjectEditor.addBlurListener(new EmailSectionHeaderEditorBlurListener(subjectDisplay, subjectEditor));
 		
 		toSection.addLayoutClickListener(new EmailHeaderSectionClickListener(toDisplay, toEditor));
-		
-		toEditor.addBlurListener(new BlurListener() {
-			@Override
-			public void blur(BlurEvent event) {
-				disableEditing(toDisplay, toEditor);
-			}
-		});
+		toEditor.addBlurListener(new EmailSectionHeaderEditorBlurListener(toDisplay, toEditor));
 		
 		ccSection.addLayoutClickListener(new EmailHeaderSectionClickListener(ccDisplay, ccEditor));
-		
-		ccEditor.addBlurListener(new BlurListener() {
-			@Override
-			public void blur(BlurEvent event) {
-				disableEditing(ccDisplay, ccEditor);
-			}
-		});
+		ccEditor.addBlurListener(new EmailSectionHeaderEditorBlurListener(ccDisplay, ccEditor));
 		
 		bccSection.addLayoutClickListener(new EmailHeaderSectionClickListener(bccDisplay, bccEditor));
+		bccEditor.addBlurListener(new EmailSectionHeaderEditorBlurListener(bccDisplay, bccEditor));
 		
-		bccEditor.addBlurListener(new BlurListener() {
-			@Override
-			public void blur(BlurEvent event) {
-				disableEditing(bccDisplay, bccEditor);
-			}
-		});
-		
-	}
-
-	protected void disableEditing(Label label, TextField field) {
-		label.setVisible(true);
-		label.setValue(field.getValue());
-		field.setVisible(false);
 	}
 
 	private VerticalLayout createLeftColumnLayout() {
@@ -182,8 +139,6 @@ public class ComposerUI extends UI {
 		emailHeader.addComponent(bccSection);
 		return emailHeader;
 	}
-
-
 
 	private void loadTemplates() {
 		final Object[][] templates = new Object[][]{

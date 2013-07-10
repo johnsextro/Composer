@@ -1,5 +1,6 @@
 package com.savvis.gsd.composer;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
@@ -51,6 +52,7 @@ public class ComposerComponentFactory {
 
 	public static Label createLabel(String uniqueElementId) {
 		Label label = new Label(" ");
+		label.setStyleName("header-field");
 		label.setId(uniqueElementId);
 		return label;
 	}
@@ -58,6 +60,7 @@ public class ComposerComponentFactory {
 	public static TextField createTextField(String uniqueElementId) {
 		TextField tf = new TextField();
 		tf.setId(uniqueElementId);
+		tf.setStyleName("header-field");
 		tf.setVisible(false);
 		return tf;
 	}
@@ -65,6 +68,7 @@ public class ComposerComponentFactory {
 	public static HorizontalLayout createHeaderSection(String uniqueIdentified, String sectionLabel, Component displayComponent, Component editorComponent) {
 		final HorizontalLayout section = new HorizontalLayout();
 		section.setId(uniqueIdentified);
+		section.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
 		section.addComponent(new Label(sectionLabel));
 		section.addComponent(displayComponent);
 		section.addComponent(editorComponent);

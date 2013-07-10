@@ -27,11 +27,14 @@
 		width: 600px;	
 	}
 	
-	.v-textfield {
+	.v-textfield 
+	{
 		width: 500px;
 	}
+
 	
-	#fromDisplay, #replyToDisplay, #subjectDisplay, #ccDisplay, #bccDisplay {
+	#fromDisplay, #replyToDisplay, #subjectDisplay, #toDisplay, #ccDisplay, #bccDisplay 
+	{
 		width: 500px;
 	} 
 	
@@ -50,7 +53,7 @@
 	{
 		padding: 10px 10px 10px 25px;
 		width: 600px;
-		height: 125px;
+		height: 140px;
 		border-width: 1px;
 		border-style: solid;
 	}

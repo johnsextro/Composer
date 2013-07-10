@@ -38,6 +38,8 @@ public class ComposerUI extends UI {
 	private final TextField fromEditor = ComposerComponentFactory.createTextField("fromEditor");
 	private final Label replyToDisplay = ComposerComponentFactory.createLabel("replyToDisplay");
 	private final TextField replyToEditor = ComposerComponentFactory.createTextField("replyToEditor");
+	private final Label toDisplay = ComposerComponentFactory.createLabel("toDisplay");
+	private final TextField toEditor = ComposerComponentFactory.createTextField("toEditor");
 	private final Label subjectDisplay = ComposerComponentFactory.createLabel("subjectDisplay");
 	private final TextField subjectEditor = ComposerComponentFactory.createTextField("subjectEditor");
 	private final Label ccDisplay = ComposerComponentFactory.createLabel("ccDisplay");
@@ -45,7 +47,8 @@ public class ComposerUI extends UI {
 	private final Label bccDisplay = ComposerComponentFactory.createLabel("bccDisplay");
 	private final TextField bccEditor = ComposerComponentFactory.createTextField("ccEditor");
 	private final HorizontalLayout fromSection = ComposerComponentFactory.createHeaderSection("fromSection", "From: ", fromDisplay, fromEditor);
-	private final HorizontalLayout replyToSection = ComposerComponentFactory.createHeaderSection("replyToSection", "Reply: ", replyToDisplay, replyToEditor);
+	private final HorizontalLayout replyToSection = ComposerComponentFactory.createHeaderSection("replyToSection", "Reply To: ", replyToDisplay, replyToEditor);
+	private final HorizontalLayout toSection = ComposerComponentFactory.createHeaderSection("toSection", "To: ", toDisplay, toEditor);
 	private final HorizontalLayout subjectSection = ComposerComponentFactory.createHeaderSection("subjectSection", "Subject: ", subjectDisplay, subjectEditor); 
 	private final HorizontalLayout ccSection = ComposerComponentFactory.createHeaderSection("ccSection", "CC: ", ccDisplay, ccEditor);
 	private final HorizontalLayout bccSection = ComposerComponentFactory.createHeaderSection("bccSection", "BCC: ", bccDisplay, bccEditor);
@@ -73,7 +76,6 @@ public class ComposerUI extends UI {
 
 	private void registerEvents() {
 		applyTemplateButton.addClickListener(new ClickListener() {
-			
 			@Override
 			public void buttonClick(ClickEvent event) {
 				String selectedTemplate = (String) templateTree.getValue();
@@ -122,6 +124,20 @@ public class ComposerUI extends UI {
 			@Override
 			public void blur(BlurEvent event) {
 				disableEditing(subjectDisplay, subjectEditor);
+			}
+		});
+		
+		toSection.addLayoutClickListener(new LayoutClickListener(){
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				enableEditing(toDisplay, toEditor);
+			}
+		});
+		
+		toEditor.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				disableEditing(toDisplay, toEditor);
 			}
 		});
 		
@@ -196,10 +212,10 @@ public class ComposerUI extends UI {
 	private Component createEmailHeader() {
 		VerticalLayout emailHeader = new VerticalLayout();
 		emailHeader.setId("emailHeader");
-		
 		emailHeader.addComponent(fromSection);
 		emailHeader.addComponent(replyToSection);
 		emailHeader.addComponent(subjectSection);
+		emailHeader.addComponent(toSection);
 		emailHeader.addComponent(ccSection);
 		emailHeader.addComponent(bccSection);
 		return emailHeader;

@@ -8,18 +8,18 @@
   /* Include all the styles from the reindeer theme */
   @include reindeer;
 
-	.v-tree
+	#treeScrollableArea
 	{
-		border: 2px solid;
-		border-radius: 10px;
-		width: 250px;
+		border: 1px solid;
+		
+		
 		margin-right: 20px;
 	}
 	
 	.gwt-RichTextArea
 	{
 		width: 600px;
-		height: 450px;	
+		height: 375px;	
 	}
 	
 	.gwt-RichTextToolbar
@@ -36,7 +36,8 @@
 	#fromDisplay, #replyToDisplay, #subjectDisplay, #toDisplay, #ccDisplay, #bccDisplay 
 	{
 		width: 500px;
-	} 
+		height: 20px;
+	}
 	
 	#templateSearch
 	{

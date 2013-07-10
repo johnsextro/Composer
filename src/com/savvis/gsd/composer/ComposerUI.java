@@ -15,6 +15,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
@@ -97,11 +98,17 @@ public class ComposerUI extends UI {
 	private VerticalLayout createLeftColumnLayout() {
 		final VerticalLayout leftColumn = new VerticalLayout();
 		final HorizontalLayout topLeft = new HorizontalLayout();
+		final Panel scrollableArea = new Panel();
+		scrollableArea.setId("treeScrollableArea");
+		scrollableArea.setContent(templateTree);
+		scrollableArea.setWidth("250px");
+		scrollableArea.setHeight("570px");
+		
 		topLeft.addComponent(templateSearchBox);
 		applyTemplateButton.setId("applyTemplateButton");
 		topLeft.addComponent(applyTemplateButton);
 		leftColumn.addComponent(topLeft);
-		leftColumn.addComponent(templateTree);
+		leftColumn.addComponent(scrollableArea);
 		
 		return leftColumn;
 	}

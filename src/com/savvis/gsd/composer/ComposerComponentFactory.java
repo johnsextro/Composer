@@ -14,8 +14,9 @@ import com.vaadin.ui.Tree;
 public class ComposerComponentFactory {
 
 	public static Tree createTemplateTree() {
-		Tree tree = new Tree("Email Templates");
+		Tree tree = new Tree();
 		tree.setId("templateTree");
+		tree.setSizeUndefined();
 		tree.setImmediate(true);
 		return tree;
 	}

@@ -6,7 +6,6 @@ Feature: User Interface for Sending Notifications
 Scenario: Validate UI Elements Exist
 	When the application starts
 	Then I see a tree view
-	And I see "Email Templates"
 	And I should see a field to use for searching templates
 	And I should see a button labeled "Apply"
 	And I should see the email editor

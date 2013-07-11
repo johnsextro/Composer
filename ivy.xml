@@ -50,6 +50,8 @@
 		
 		<!-- Used for unit tests and Cukes. Should not be deployed -->
 		<dependency org="junit" name="junit" rev="4.11" conf="nodeploy->default"/>
+		<dependency org="org.mockito" name="mockito-all" rev="1.8.4" conf="nodeploy->default"/>
+		
 		
 	</dependencies>
 </ivy-module>

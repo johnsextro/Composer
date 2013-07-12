@@ -23,17 +23,4 @@ public class TemplateContainerTest {
 		assertNotNull(container);
 	}
 	
-	@Test
-	public void testAddedItemCanBeGotten() {
-		String itemId = Mockito.anyString();
-		container.addItem(itemId);
-		assertTrue(itemId.equals(container.getItem(itemId)));
-	}
-	
-	@Test
-	public void testGetItemsIsNotNull() {
-		Collection<?> itemIds = container.getItemIds();
-		assertNotNull(itemIds);
-	}
-
 }

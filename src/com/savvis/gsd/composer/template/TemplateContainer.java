@@ -6,139 +6,68 @@ import java.util.Collection;
 import com.vaadin.data.Container.Hierarchical;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.data.util.HierarchicalContainer;
 
-public class TemplateContainer implements Hierarchical{
+public class TemplateContainer {
+    public static HierarchicalContainer createTreeContent() {
+        final Object[] inventory = new Object[] {
+                "root",
+                "+5 Quarterstaff (blessed)",
+                "+3 Elven Dagger (blessed)",
+                "+5 Helmet (greased)",
+                new Object[] {"Sack",
+                        "Pick-Axe",
+                        "Lock Pick",
+                        "Tinning Kit",
+                        "Potion of Healing (blessed)",
+                },
+                new Object[] {"Bag of Holding",
+                        "Potion of Invisibility",
+                        "Magic Marker",
+                        "Can of Grease (blessed)",
+                },
+                new Object[] {"Chest",
+                        "Scroll of Identify",
+                        "Scroll of Genocide",
+                        "Towel",
+                        new Object[] {"Large Box",
+                                "Bugle",
+                                "Oil Lamp",
+                                "Figurine of Vaadin",
+                                "Expensive Camera",
+                        },
+                        "Tin Opener",
+                },
+        };
 
-	private Collection<String> templates = new ArrayList<String>();
+        HierarchicalContainer container = new HierarchicalContainer();
+        
+        // A property that holds the caption is needed for ITEM_CAPTION_MODE_PROPERTY
+        container.addContainerProperty("caption", String.class, "");
+        
+        new Object() {
+            public void put(Object[] data, Object parent, HierarchicalContainer container) {
+                for (int i=1; i<data.length; i++) {
+                    if (data[i].getClass() == String.class) {
+                        // Support both ITEM_CAPTION_MODE_ID and ITEM_CAPTION_MODE_PROPERTY
+                        container.addItem(data[i]);
+                        container.getItem(data[i]).getItemProperty("caption").setValue(data[i]);
+                        container.setParent(data[i], parent);
+                        container.setChildrenAllowed(data[i], false);
+                    } else {// It's an Object[]
+                        Object[] sub = (Object[]) data[i];
+                        String name = (String) sub[0];
 
-	@Override
-	public Item getItem(Object itemId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<?> getContainerPropertyIds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<?> getItemIds() {
-		return this.templates;
-	}
-
-	@Override
-	public Property getContainerProperty(Object itemId, Object propertyId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Class<?> getType(Object propertyId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean containsId(Object itemId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Item addItem(Object itemId) throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object addItem() throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean addContainerProperty(Object propertyId, Class<?> type,
-			Object defaultValue) throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeContainerProperty(Object propertyId)
-			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeAllItems() throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Collection<?> getChildren(Object itemId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getParent(Object itemId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<?> rootItemIds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean setParent(Object itemId, Object newParentId)
-			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean areChildrenAllowed(Object itemId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed)
-			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isRoot(Object itemId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasChildren(Object itemId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeItem(Object itemId)
-			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+                        // Support both ITEM_CAPTION_MODE_ID and ITEM_CAPTION_MODE_PROPERTY
+                        container.addItem(name);
+                        container.getItem(name).getItemProperty("caption").setValue(name);
+                        put(sub, name, container);
+                        container.setParent(name, parent);
+                    }
+                }
+            }
+        }.put(inventory, null, container);
+        
+        return container;
+    }
 }
